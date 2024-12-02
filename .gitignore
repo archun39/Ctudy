@@ -1,3 +1,4 @@
 *.out
 tempCodeRunnerFile.cpp
 .DS_Store
+*.dSYM
