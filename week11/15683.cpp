@@ -36,15 +36,18 @@ void input(){
     }
 }
 
+//벽 판별
 bool isWall(int x, int y){
     if(map[x][y] == 6) return true;
     return false;
 }
 
+//영역 밖 판별
 bool isOut(int x, int y){
     return x < 1 || y < 1 || x > N || y > M;
 }
 
+//cctv의 탐지 과정
 void process(T cctv, int dir, bool on){
     int nx = cctv.x;
     int ny = cctv.y;
@@ -86,6 +89,7 @@ void type5(T cctv, int dir, bool on){
     }
 }
 
+//cctv의 종류 판별
 void getType(T cctv, int i, bool on){
     switch (cctv.type)
         {
@@ -132,6 +136,7 @@ int getSpace(){
 }
 
 void sol(int idx){
+    //cctv를 모두 판독한 이후
     if(idx == cctvs.size()){
         int res = getSpace();
         answer = min(answer, res);
@@ -139,9 +144,9 @@ void sol(int idx){
     }
     T cctv = cctvs[idx];
     for(int i = 0; i < 4; i++){
-        getType(cctv, i, true);
+        getType(cctv, i, true); //탐지
         sol(idx+1);
-        getType(cctv, i, false);
+        getType(cctv, i, false); //탐지 해제
     }
 }
 
