@@ -50,18 +50,19 @@ void sol(){
                 
                 if(cur == tmp.height){
                     tmp.cnt += count;
-                    tmp.cnt++;
+                    tmp.cnt++; //새롭게 추가된 막대 갯수 = 1
                     stack.push_back(tmp);
                     break;
                 }
+                //새롭게 추가된 막대가 더 큰 높이 이므로 새롭게 추가된 막대에게 count를 부여한다.
                 else if(cur > tmp.height){
-                    stack.push_back(tmp);
+                    stack.push_back(tmp); 
                     stack.push_back(T(cur, count+1));
                     break;
                 }
-                else{
+                else{ //
                     answer = max(answer, tmp.height * (tmp.cnt + count));
-                    count += tmp.cnt;
+                    count += tmp.cnt; // 사용된 막대들 갯수
                 }
 
                 if(stack.empty()){
@@ -73,6 +74,7 @@ void sol(){
         //print();
     }
     int count = 0;
+    //stack 안 계산 
     while(!stack.empty()){
         T tmp = stack.back();
         stack.pop_back();
