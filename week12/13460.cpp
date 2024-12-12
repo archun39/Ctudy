@@ -70,19 +70,18 @@ void sol() {
         P b = q.front().second;
         q.pop();
 
-        //cout << r.x << ":" <<r.y << " .. " <<b.x << ":" <<b.y << endl;
         for (int i = 0; i < 4; i++) {
             P r_res = move_ball(r, i);
             P b_res = move_ball(b, i);
 
-            if (!b_res.status) continue; // Ignore if blue falls into the goal
-            if (!r_res.status) {         // Red falls into the goal
+            if (!b_res.status) continue; // 파란색이 구멍에 들어가면 절대 안된다.
+            if (!r_res.status) {         // 빨간색이 구멍에 들어가는 경우
 
                 answer = min(answer, r_res.count);
                 continue;
             }
 
-            // Resolve overlap
+            //구슬이 뭉치는 경우
             if (r_res.x == b_res.x && r_res.y == b_res.y) {
                 if (r_res.move > b_res.move) {
                     r_res.x -= dx[i];
@@ -93,13 +92,12 @@ void sol() {
                 }
             }
 
-            // Skip if count exceeds limit
+            //10번 이하만 계산
             if (r_res.count >= 10 || b_res.count >= 10) continue;
 
             if (!isVisited[r_res.x][r_res.y][b_res.x][b_res.y]) {
                 isVisited[r_res.x][r_res.y][b_res.x][b_res.y] = true;
                 q.push({r_res, b_res});
-                //cout << i << endl;
             }
         }
     }
